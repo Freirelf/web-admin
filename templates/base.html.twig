@@ -6,13 +6,13 @@
     <meta name="description" content="Área administrativa">
     <title>{% block title %}Web Admin{% endblock %}</title>
     <!-- Vendors styles-->
-    <link rel="stylesheet" href="admin/vendors/simplebar/css/simplebar.css">
-    <link rel="stylesheet" href="admin/css/vendors/simplebar.css">
+    <link rel="stylesheet" href="/admin/vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="/admin/css/vendors/simplebar.css">
     <!-- Main styles for this application-->
-    <link href="admin/css/style.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet">
     <!-- We use those styles to show code examples, you should remove them in your application.-->
-    <link href="admin/css/examples.css" rel="stylesheet">
-    <link href="admin/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <link href="/admin/css/examples.css" rel="stylesheet">
+    <link href="/admin/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
             {% block stylesheets %}
         {% endblock %}
 
@@ -31,15 +31,19 @@
         </svg>
       </div>
       <ul class="sidebar-nav simplebar-scrollable-y simplebar-mouse-entered" data-coreui="navigation" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
-        <li class="nav-item"><a class="nav-link" href="{{ path('app_admin_dashboard')}}">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> Dashboard</a></li>
-        <li class="nav-title">Theme</li>
-        <li class="nav-item"><a class="nav-link" href="colors.html">
-            <svg class="nav-icon">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-drop"></use>
-            </svg> Colors</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_admin_dashboard')}}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white" height="20" class="me-4"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3L280 88c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 204.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
+            Dashboard
+          </a>    
+        </li>
+        <li class="nav-title">Produtos</li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('app_admin_product_property_index')}}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white" height="20" class="me-4"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z"/></svg> 
+            Propriedades
+          </a>  
+          </li>
         <li class="nav-item"><a class="nav-link" href="typography.html">
             <svg class="nav-icon">
               <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-pencil"></use>
@@ -184,13 +188,13 @@
       </footer>
     </div>
     <!-- CoreUI and necessary plugins-->
-    <script src="admin/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
-    <script src="admin/vendors/simplebar/js/simplebar.min.js"></script>
+    <script src="/admin/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="/admin/vendors/simplebar/js/simplebar.min.js"></script>
     <!-- Plugins and scripts required by this view-->
-    <script src="admin/vendors/chart.js/js/chart.min.js"></script>
-    <script src="admin/vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
-    <script src="admin/vendors/@coreui/utils/js/coreui-utils.js"></script>
-    <script src="admin/js/main.js"></script>
+    <script src="/admin/vendors/chart.js/js/chart.min.js"></script>
+    <script src="/admin/vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
+    <script src="/admin/vendors/@coreui/utils/js/coreui-utils.js"></script>
+    <script src="/admin/js/main.js"></script>
     <script>
     </script>
 
