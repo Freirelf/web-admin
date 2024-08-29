@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_admin_news_category_delete', {'id': news_category.id}) }}" onsubmit="return confirm('Tem certeza que quer apagar este item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ news_category.id) }}">
+    <button class="btn btn-outline-danger ">Apagar</button>
+</form>
+

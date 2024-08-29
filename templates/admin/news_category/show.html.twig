@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vizualizar Categorias de notícias{% endblock %}
+
+{% block body %}
+    <h1>Categorias de notícias</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Title</th>
+                <td>{{ news_category.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_news_category_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+    <a href="{{ path('app_admin_news_category_edit', {'id': news_category.id}) }}" class="btn btn-outline-info float-start me-2">Editar</a>
+
+    {{ include('admin/news_category/_delete_form.html.twig') }}
+{% endblock %}
