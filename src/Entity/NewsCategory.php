@@ -16,6 +16,9 @@ class NewsCategory
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $language = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class NewsCategory
     public function setTitle(string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?int
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?int $language): static
+    {
+        $this->language = $language;
 
         return $this;
     }

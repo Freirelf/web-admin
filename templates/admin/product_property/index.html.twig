@@ -53,6 +53,7 @@
 				<thead>
 					<tr>
 						<th>Título</th>
+						<th>Idioma</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -60,6 +61,7 @@
 					{% for product_property in product_properties %}
 						<tr>
 							<td>{{ product_property.title }}</td>
+							<td>{{ product_property.language }}</td>
 							<td>
 								<a href="{{ path('app_admin_product_property_edit', {'id': product_property.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
 								<a href="{{ path('app_admin_product_property_show', {'id': product_property.id}) }}" class="btn btn-outline-info float-end me-2">Vizualizar</a>

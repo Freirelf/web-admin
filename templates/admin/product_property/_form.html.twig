@@ -4,5 +4,12 @@
     {{ form_widget(form.title, {'attr': {'class': 'form-control' } }) }}
 	<div id="emailHelp" class="form-text">Informe o título da propriedade.</div>
 </div>
+
+<div class="mb-3">
+	<label for="{{ form.language.vars.id }}" class="form-label">Idioma</label>
+    {{ form_widget(form.language, {'attr': {'class': 'form-control' } }) }}
+	<div id="emailHelp" class="form-text">Informe o idioma da propriedade.</div>
+</div>
+
 <button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
