@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar dados gerais{% endblock %}
+
+{% block body %}
+    <h1>Editar dados</h1>
+
+    {{ include('admin/general_data/_form.html.twig', {'button_label': 'Salvar'}) }}
+
+{% endblock %}
+
+
