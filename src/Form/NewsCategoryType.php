@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\LanguageEnum ;
+use App\Entity\Enum\LanguageEnum;
 use App\Entity\NewsCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% set languagesEnum = enum('\\App\\Entity\\Enum\\LanguageEnum') %}
 {% block title %}
 	Lista de Categorias de notícias
 {% endblock %}
@@ -53,6 +53,7 @@
 				<thead>
 					<tr>
 						<th>Título</th>
+						<th>Idioma</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -60,6 +61,7 @@
 					{% for news_category in news_categories %}
 						<tr>
 							<td>{{ news_category.title }}</td>
+							<td>{{ languagesEnum.getFlag(news_category.language)|raw }}</td>
 							<td>
 								<a href="{{ path('app_admin_news_category_edit', {'id': news_category.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
 								<a href="{{ path('app_admin_news_category_show', {'id': news_category.id}) }}" class="btn btn-outline-info float-end me-2">Vizualizar</a>
