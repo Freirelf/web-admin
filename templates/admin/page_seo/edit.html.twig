@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar SEO {% endblock %}
+
+{% block body %}
+	<h2>Editar SEO</h2>
+
+	{{ include('admin/page_seo/_form.html.twig', {'button_label': 'Salvar'}) }}
+
+	<a href="{{ path('app_admin_page_seo_index') }}" class="btn btn-outline-secondary me-2 float-start mb-5">Voltar</a>
+{% endblock %}
