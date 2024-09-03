@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+<div class="mb-3">
+	<label for="{{ form.url.vars.id }}" class="form-label">Url</label>
+    {{ form_widget(form.url, {'attr': {'class': 'form-control' } }) }}
+	<div id="emailHelp" class="form-text">Informe a url do form.</div>
+</div>
+<button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
