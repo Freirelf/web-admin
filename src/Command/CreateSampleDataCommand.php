@@ -4,8 +4,10 @@ namespace App\Command;
 
 use App\Entity\Enum\LanguageEnum;
 use App\Entity\GeneralData;
+use App\Entity\GlobalTags;
 use App\Entity\PageSeo;
 use App\Repository\GeneralDataRepository;
+use App\Repository\GlobalTagsRepository;
 use App\Repository\PageSeoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -22,27 +24,28 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class CreateSampleDataCommand extends Command
 {
-    public function __construct(private GeneralDataRepository $generalDataRepository, private PageSeoRepository $pageSeoRepository, private EntityManagerInterface $entityManager) 
+    public function __construct(
+        private GeneralDataRepository $generalDataRepository, 
+        private PageSeoRepository $pageSeoRepository, 
+        private EntityManagerInterface $entityManager,
+        private GlobalTagsRepository $globalTagsRepository
+        )
     {
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-
-    }
+    protected function configure(): void {}
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         foreach (LanguageEnum::getLanguages() as $index => $option) {
-            $pageSeo = $this->pageSeoRepository->findOneBy(['language'=> $option]);
-            if($pageSeo) {
-                $io->writeln('Page Seo em '.$index.' <comment> já exite</comment>');
-
+            $pageSeo = $this->pageSeoRepository->findOneBy(['language' => $option]);
+            if ($pageSeo) {
+                $io->writeln('Page Seo em ' . $index . ' <comment> já exite</comment>');
             } else {
-                $io->writeln('Page Seo em '.$index.' <info>criada</info>');
+                $io->writeln('Page Seo em ' . $index . ' <info>criada</info>');
 
                 $pageSeo = new PageSeo();
                 $pageSeo->setHomePageTitle('Titulo da página');
@@ -66,9 +69,8 @@ class CreateSampleDataCommand extends Command
             }
         }
 
-        $generalData = $this->generalDataRepository->find(id:1);
-        if ($generalData)
-        {
+        $generalData = $this->generalDataRepository->find(id: 1);
+        if ($generalData) {
             $io->writeln('General Data <comment> já exite</comment>');
         } else {
             $io->writeln('General Data <info>criada</info>');
@@ -79,7 +81,21 @@ class CreateSampleDataCommand extends Command
 
             $this->entityManager->persist($generalData);
             $this->entityManager->flush();
-        }        
+        }
+
+        $globalTags = $this->globalTagsRepository->findAll();
+        if ($globalTags) {
+            $io->writeln('Global tags <comment> já exite</comment>');
+        } else {
+            $io->writeln('Global tags <info>criada</info>');
+            $globalTags = new GlobalTags();
+            $globalTags->setGa4('GA4');
+            $globalTags->setPixelMetaAds('Meta pixel');
+            $globalTags->setTagsGoogleAds('Google Ads');
+
+            $this->entityManager->persist($globalTags);
+            $this->entityManager->flush();
+        }
 
         $io->success('Data injected successfully.');
 

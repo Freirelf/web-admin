@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Global Tags{% endblock %}
+
+{% block body %}
+    <h1>Editar GlobalTags</h1>
+
+    {{ include('admin/global_tags/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

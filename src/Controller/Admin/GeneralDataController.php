@@ -23,7 +23,7 @@ class GeneralDataController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_general_data_edit', ['id'=>1], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_general_data_edit', ['id'=>$generalDatum->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/general_data/edit.html.twig', [
