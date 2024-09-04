@@ -30,6 +30,13 @@
 </div>
 
 <div class="mb-3">
+	<label for="{{ form.language.vars.id }}" class="form-label">Idioma</label>
+    {{ form_widget(form.language, {'attr': {'class': 'form-control' } }) }}
+	<div id="emailHelp" class="form-text">Informe o idioma da banner.</div>
+</div>
+
+
+<div class="mb-3">
 	<label for="{{ form.imageFile.vars.id }}" class="form-label">Imagem</label>
     {{ form_widget(form.imageFile) }}
 	 {% if banner.imageFile is not empty %}

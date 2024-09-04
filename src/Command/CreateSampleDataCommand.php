@@ -7,10 +7,12 @@ use App\Entity\Enum\LanguageEnum;
 use App\Entity\GeneralData;
 use App\Entity\GlobalTags;
 use App\Entity\PageSeo;
+use App\Entity\WhoWeArePage;
 use App\Repository\ContactFormUrlPostRepository;
 use App\Repository\GeneralDataRepository;
 use App\Repository\GlobalTagsRepository;
 use App\Repository\PageSeoRepository;
+use App\Repository\WhoWeArePageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -31,7 +33,8 @@ class CreateSampleDataCommand extends Command
         private PageSeoRepository $pageSeoRepository, 
         private EntityManagerInterface $entityManager,
         private GlobalTagsRepository $globalTagsRepository,
-        private ContactFormUrlPostRepository $contactFormUrlPostRepository
+        private ContactFormUrlPostRepository $contactFormUrlPostRepository,
+        private WhoWeArePageRepository $whoWeArePageRepository
         )
     {
         parent::__construct();
@@ -111,6 +114,26 @@ class CreateSampleDataCommand extends Command
             $this->entityManager->persist($contactFormUrl);
             $this->entityManager->flush();
         }
+
+        foreach (LanguageEnum::getLanguages() as $index => $option) {
+            $whoWeAre = $this->whoWeArePageRepository->findOneBy(['language' => $option]);
+            if ($whoWeAre) {
+                $io->writeln('Who we are ' . $index . ' <comment> já exite</comment>');
+            } else {
+                $io->writeln('Who we are ' . $index . ' <info>criada</info>');
+
+                $whoWeAre = new WhoWeArePage();
+                $whoWeAre->setPresentation('Parte 1 da descrição da página da página');
+                $whoWeAre->setPresentationPart2('Parte 2 da descrição da página da página');
+                $whoWeAre->setPresentationPart3('Parte 3 da descrição da página da página');
+
+                $whoWeAre->setLanguage($option);
+
+                $this->entityManager->persist($whoWeAre);
+                $this->entityManager->flush();
+            }
+        }
+
 
         $io->success('Data injected successfully.');
 

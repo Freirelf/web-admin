@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Banner;
+use App\Entity\Enum\LanguageEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +25,9 @@ class BannerType extends AbstractType
             ])
             ->add('position')
             ->add('url')
+            ->add('language', ChoiceType::class, [
+                'choices' => LanguageEnum::getLanguages(),
+            ])
             ->add('imageFile', VichFileType::class, [
                 'required' => false,
                 'allow_delete' => false,
