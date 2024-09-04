@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Banner{% endblock %}
+
+{% block body %}
+    <h1>Banner</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ banner.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ banner.title }}</td>
+            </tr>
+            <tr>
+                <th>Subtitle</th>
+                <td>{{ banner.subtitle }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ banner.active }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ banner.position }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ banner.url }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ banner.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_banner_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+    <a href="{{ path('app_admin_banner_edit', {'id': banner.id}) }}" class="btn btn-outline-info me-2 float-start">Editar</a>
+
+    {{ include('admin/banner/_delete_form.html.twig') }}
+{% endblock %}

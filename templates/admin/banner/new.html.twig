@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Banner{% endblock %}
+
+{% block body %}
+    <h1>Create new Banner</h1>
+
+    {{ include('admin/banner/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_banner_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+{% endblock %}
