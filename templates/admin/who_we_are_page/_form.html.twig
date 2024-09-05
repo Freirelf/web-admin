@@ -9,13 +9,37 @@
 </div>
 
 <div class="mb-3">
+	<label for="{{ form.imageFile1.vars.id }}" class="form-label">Imagem</label>
+    {{ form_widget(form.imageFile1) }}
+	 {% if who_we_are_page.imageFile1 is not empty %}
+    	<img class="mt-3" src="{{ vich_uploader_asset(who_we_are_page,'imageFile1') }}" width="150" />
+    {% endif %}
+</div>
+<hr>
+<div class="mb-3">
 	<label for="{{ form.presentationPart2.vars.id }}" class="form-label">2º parte da apresentação</label>
     {{ form_widget(form.presentationPart2, {'attr': {'class': 'form-control', 'rows':'6' } }) }}
 </div>
 
 <div class="mb-3">
+	<label for="{{ form.imageFile2.vars.id }}" class="form-label">2 Imagem</label>
+    {{ form_widget(form.imageFile2) }}
+	 {% if who_we_are_page.imageFile2 is not empty %}
+    	<img class="mt-3" src="{{ vich_uploader_asset(who_we_are_page,'imageFile2') }}" width="150" />
+    {% endif %}
+</div>
+<hr>
+<div class="mb-3">
 	<label for="{{ form.presentationPart3.vars.id }}" class="form-label">3º parte da apresentação </label>
     {{ form_widget(form.presentationPart3, {'attr': {'class': 'form-control', 'rows':'6' } }) }}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.imageFile3.vars.id }}" class="form-label">3 Imagem</label>
+    {{ form_widget(form.imageFile3) }}
+	 {% if who_we_are_page.imageFile3 is not empty %}
+    	<img class="mt-3" src="{{ vich_uploader_asset(who_we_are_page,'imageFile3') }}" width="150" />
+    {% endif %}
 </div>
 
 <hr>
