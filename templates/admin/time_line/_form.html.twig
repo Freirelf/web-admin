@@ -1,0 +1,37 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="mb-3 col col-12">
+            <label for="{{ form.title.vars.id }}" class="form-label">Título</label>
+            {{ form_widget(form.title, {'attr': {'class': 'form-control' } }) }}
+        </div>
+
+        <div class="mb-3 col col-12">
+            <label for="{{ form.description.vars.id }}" class="form-label">Descrição</label>
+            {{ form_widget(form.description, {'attr': {'class': 'form-control' } }) }}
+        </div>
+
+        <div class="mb-3 col col-6">
+            <label for="{{ form.date.vars.id }}" class="form-label">Data</label>
+            {{ form_widget(form.date, {'attr': {'class': 'form-control' } }) }}
+        </div>
+
+        <div class="mb-3 col col-6">
+            <label for="{{ form.status.vars.id }}" class="form-label">Status</label>
+            {{ form_widget(form.status, {'attr': {'class': 'form-control' } }) }}
+        </div>
+
+
+        <div class="mb-3 col col-6">
+            <label for="{{ form.position.vars.id }}" class="form-label">Posição</label>
+            {{ form_widget(form.position, {'attr': {'class': 'form-control' } }) }}
+        </div>
+
+        <div class="mb-3 col col-6">
+            <label for="{{ form.language.vars.id }}" class="form-label">Idioma</label>
+            {{ form_widget(form.language, {'attr': {'class': 'form-control' } }) }}
+        </div>
+
+    </div>
+<button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TimeLine{% endblock %}
+
+{% block body %}
+    <h1>Editar Linha do tempo</h1>
+
+    {{ include('admin/time_line/_form.html.twig', {'button_label': 'Salvar'}) }}
+
+    <a href="{{ path('app_admin_time_line_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+    {{ include('admin/time_line/_delete_form.html.twig') }}
+{% endblock %}
