@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Produtos{% endblock %}
+
+{% block body %}
+    <h1>Edit Product</h1>
+
+    {{ include('admin/product/_form.html.twig', {'button_label': 'Salvar'}) }}
+
+    <a href="{{ path('app_admin_product_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+    {{ include('admin/product/_delete_form.html.twig') }}
+{% endblock %}
