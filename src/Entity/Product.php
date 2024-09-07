@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -51,6 +53,17 @@ class Product
 
     #[ORM\Column(nullable: true)]
     private ?int $language = null;
+
+    /**
+     * @var Collection<int, ProductPropertyValue>
+     */
+    #[ORM\OneToMany(targetEntity: ProductPropertyValue::class, mappedBy: 'product')]
+    private Collection $productPropertyValues;
+
+    public function __construct()
+    {
+        $this->productPropertyValues = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,6 +196,36 @@ class Product
     public function setLanguage(?int $language): static
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductPropertyValue>
+     */
+    public function getProductPropertyValues(): Collection
+    {
+        return $this->productPropertyValues;
+    }
+
+    public function addProductPropertyValue(ProductPropertyValue $productPropertyValue): static
+    {
+        if (!$this->productPropertyValues->contains($productPropertyValue)) {
+            $this->productPropertyValues->add($productPropertyValue);
+            $productPropertyValue->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductPropertyValue(ProductPropertyValue $productPropertyValue): static
+    {
+        if ($this->productPropertyValues->removeElement($productPropertyValue)) {
+            // set the owning side to null (unless already changed)
+            if ($productPropertyValue->getProduct() === $this) {
+                $productPropertyValue->setProduct(null);
+            }
+        }
 
         return $this;
     }

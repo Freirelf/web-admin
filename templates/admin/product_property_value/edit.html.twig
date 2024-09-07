@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Propriedades do Produto {% endblock %}
+
+{% block body %}
+    <h1>Editar Propriedades do Produto</h1>
+
+    {{ include('admin/product_property_value/_form.html.twig', {'button_label': 'Salvar'}) }}
+
+    <a href="{{ path('app_admin_product_property_value_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+
+    {{ include('admin/product_property_value/_delete_form.html.twig') }}
+{% endblock %}

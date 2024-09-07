@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductPropertyValue{% endblock %}
+
+{% block body %}
+    <h1>ProductPropertyValue</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product_property_value.id }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ product_property_value.value }}</td>
+            </tr>
+            <tr>
+                <th>Language</th>
+                <td>{{ product_property_value.language }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_product_property_value_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_product_property_value_edit', {'id': product_property_value.id}) }}">edit</a>
+
+    {{ include('admin/product_property_value/_delete_form.html.twig') }}
+{% endblock %}
