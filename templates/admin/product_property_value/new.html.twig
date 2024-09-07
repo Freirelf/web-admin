@@ -3,9 +3,10 @@
 {% block title %}Criar nova propriedade de produt{% endblock %}
 
 {% block body %}
-    <h1>Criar nova propriedade de produto</h1>
+    <h1>{{ product.title }}</h1>
+    <h4>Criar nova propriedade de produto</h4>
 
     {{ include('admin/product_property_value/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_product_property_value_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+    <a href="{{ path('app_admin_product_property_value_index', {'productId': product.id}) }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
 {% endblock %}

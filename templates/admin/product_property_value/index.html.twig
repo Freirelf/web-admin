@@ -38,10 +38,12 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css"/>
 	<script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 
+    <h1>{{ product.title }}</h1>
+    <h4>Propriedades do produto</h4>
 
 	<div class="row text-end">
 		<div class="col">
-			<a href="{{ path('app_admin_product_property_value_new') }}" class="mb-2 btn btn-outline-secondary">Criar novo</a>
+			<a href="{{ path('app_admin_product_property_value_new',{'productId':product.id}) }}" class="mb-2 btn btn-outline-secondary">Criar novo</a>
 		</div>
 	</div>
 
@@ -63,19 +65,12 @@
 				<tbody>
 					{% for product_property_value in product_property_values %}
 						<tr>
-							{# <td>
-								{% if product_property_value.active==1 %}
-									<span class="badge badge-sm bg-info ms-auto">Ativo</span>
-								{% else %}
-									<span class="badge badge-sm bg-secondary ms-auto">Inativo</span>
-								{% endif %}
-							</td> #}
 							<td>{{ product_property_value.product.title }}</td>
 							<td>{{ product_property_value.productProperty.title }}</td>
 							<td>{{ product_property_value.value }}</td>
                             <td>{{ languagesEnum.getFlag(product_property_value.language)|raw }}</td>
 							<td>
-								<a href="{{ path('app_admin_product_property_value_edit', {'id': product_property_value.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
+								<a href="{{ path('app_admin_product_property_value_edit', {'id': product_property_value.id, 'productId':product.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
 								<a href="{{ path('app_admin_product_property_value_show', {'id': product_property_value.id}) }}" class="btn btn-outline-info float-end me-2">Vizualizar</a>
 							</td>
 						</tr>
@@ -86,6 +81,8 @@
 					{% endfor %}
 				</tbody>
 			</table>
+                <a href="{{ path('app_admin_product_index', {'productId': product.id}) }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
 		</div>
 	</div>
 {% endblock %}

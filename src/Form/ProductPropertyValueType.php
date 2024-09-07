@@ -8,6 +8,7 @@ use App\Entity\ProductProperty;
 use App\Entity\ProductPropertyValue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,9 @@ class ProductPropertyValueType extends AbstractType
     {
         $builder
             ->add('value')
-            ->add('language')
+            ->add('language', ChoiceType::class, [
+                'choices' => LanguageEnum::getLanguages(),
+            ])
             ->add('product', EntityType::class, [
                 'class' => Product::class,
                 'choice_label' => 'id',
