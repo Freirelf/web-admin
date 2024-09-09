@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Manual do produto{% endblock %}
+
+{% block body %}
+    <h1>Editar Manual do produto</h1>
+
+    {{ include('admin/product_manual/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_product_manual_index', {'productId': product.id}) }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+    {{ include('admin/product_manual/_delete_form.html.twig') }}
+{% endblock %}

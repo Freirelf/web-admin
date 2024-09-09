@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
-{% set languagesEnum = enum('\\App\\Entity\\Enum\\LanguageEnum') %}
 {% block title %}
-	Produtos
+	Lista dos manuais do Produtos
 {% endblock %}
 {% block javascripts %}
 	<script
@@ -41,47 +40,33 @@
 
 <div class="row text-end">
 	<div class="col">
-		<a href="{{ path('app_admin_product_new') }}" class="mb-2 btn btn-outline-secondary">Criar novo</a>
+		<a href="{{ path('app_admin_product_manual_new', {'productId':product.id}) }}" class="mb-2 btn btn-outline-secondary">Criar novo</a>
 	</div>
 </div>
 
 <div class="card">
 	<div class="card-header">
-		<h5>Produtos</h5>
+		<h5>Lista dos manuais dos Produtos</h5>
 	</div>
 	<div class="card-body">
 		<table class="table" id="myTable">
 			<thead>
 				<tr>
-					<th>Status</th>
+					<th>Produto</th>
 					<th>Title</th>
-					<th>Image</th>
-					<th>Idioma</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for product in products %}
+				{% for product_manual in product_manuals %}
 					<tr>
+						<td>{{ product_manual.product.title }}</td>
+						<td>{{ product_manual.title }}</td>
 						<td>
-							{% if product.status==1 %}
-								<span class="badge badge-sm bg-info ms-auto">Ativo</span>
-							{% else %}
-								<span class="badge badge-sm bg-secondary ms-auto">Inativo</span>
+                            {% if product_manual.manualFile is not empty %}
+							<a target="_blank" class="btn btn-outline-secondary float-end ms-2" href="{{ vich_uploader_asset(product_manual,'manualFile') }}">PDF</a>
 							{% endif %}
-						</td>
-						<td>{{ product.title }}</td>
-						<td>
-							{% if product.imageFile is not empty %}
-								<img class="mt-3" src="{{ vich_uploader_asset(product,'imageFile') }}" width="80"/>
-							{% endif %}
-						</td>
-						<td>{{ languagesEnum.getFlag(product.language)|raw }}</td>
-						<td>
-							<a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
-							<a href="{{ path('app_admin_product_property_value_index', {'productId': product.id}) }}" class="btn btn-outline-info float-end me-2">Propriedades</a>
-							<a href="{{ path('app_admin_product_image_index', {'productId': product.id}) }}" class="btn btn-outline-info float-end me-2">Images</a>
-							<a href="{{ path('app_admin_product_manual_index', {'productId': product.id}) }}" class="btn btn-outline-info float-end me-2">Manual</a>
+							<a href="{{ path('app_admin_product_manual_edit', {'id': product_manual.id, 'productId':product.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
 						</td>
 					</tr>
 				{% else %}
@@ -91,5 +76,8 @@
 				{% endfor %}
 			</tbody>
 		</table>
+        <a href="{{ path('app_admin_product_index', {'productId': product.id}) }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
 	</div>
 </div>{% endblock %}
+
+

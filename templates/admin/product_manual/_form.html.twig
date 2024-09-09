@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<div class="mb-3">
+	<label for="{{ form.product.vars.id }}" class="form-label">Produto</label>
+    {{ form_widget(form.product, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.manualFile.vars.id }}" class="form-label">Arquivo</label>
+    {{ form_widget(form.manualFile) }}
+	{% if product_manual.manualFile is not empty %}
+    	 <a class="btn btn-sm btn-outline-secondary mt-3" target="_blank" href="{{ vich_uploader_asset(product_manual,'manualFile') }}">Ver PDF</a>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.title.vars.id }}" class="form-label">Título</label>
+    {{ form_widget(form.title, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.description.vars.id }}" class="form-label">Descrição</label>
+    {{ form_widget(form.description, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

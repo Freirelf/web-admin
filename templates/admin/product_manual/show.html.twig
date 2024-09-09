@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductManual{% endblock %}
+
+{% block body %}
+    <h1>ProductManual</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product_manual.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ product_manual.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product_manual.description }}</td>
+            </tr>
+            <tr>
+                <th>FileName</th>
+                <td>{{ product_manual.fileName }}</td>
+            </tr>
+            <tr>
+                <th>FileUpdatedAt</th>
+                <td>{{ product_manual.fileUpdatedAt ? product_manual.fileUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_product_manual_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_product_manual_edit', {'id': product_manual.id}) }}">edit</a>
+
+    {{ include('admin/product_manual/_delete_form.html.twig') }}
+{% endblock %}
