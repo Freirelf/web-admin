@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_admin_product_property_value_delete', {'id': product_property_value.id}) }}" onsubmit="return confirm('Tem certeza que quer apagar este item?');">
+<form method="post" action="{{ path('app_admin_product_property_value_delete', {'id': product_property_value.id, 'productId':product.id}) }}" onsubmit="return confirm('Tem certeza que quer apagar este item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product_property_value.id) }}">
     <button class="btn btn-outline-danger ">Apagar</button>
 </form>

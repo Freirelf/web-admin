@@ -75,14 +75,15 @@ class ProductPropertyValueController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_product_property_value_delete', methods: ['POST'])]
-    public function delete(Request $request, ProductPropertyValue $productPropertyValue, EntityManagerInterface $entityManager): Response
+    #[Route('/{productId}/{id}', name: 'app_admin_product_property_value_delete', methods: ['POST'])]
+    public function delete(Request $request, ProductPropertyValue $productPropertyValue, EntityManagerInterface $entityManager, $productId, ProductRepository $productRepository): Response
     {   
+        $product = $productRepository->find($productId);
         if ($this->isCsrfTokenValid('delete'.$productPropertyValue->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($productPropertyValue);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_admin_product_property_value_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_product_property_value_index', ['productId' => $productId], Response::HTTP_SEE_OTHER);
     }
 }

@@ -60,9 +60,16 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductPropertyValue::class, mappedBy: 'product')]
     private Collection $productPropertyValues;
 
+    /**
+     * @var Collection<int, ProductImage>
+     */
+    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product')]
+    private Collection $productImages;
+
     public function __construct()
     {
         $this->productPropertyValues = new ArrayCollection();
+        $this->productImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +231,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($productPropertyValue->getProduct() === $this) {
                 $productPropertyValue->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductImage>
+     */
+    public function getProductImages(): Collection
+    {
+        return $this->productImages;
+    }
+
+    public function addProductImage(ProductImage $productImage): static
+    {
+        if (!$this->productImages->contains($productImage)) {
+            $this->productImages->add($productImage);
+            $productImage->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductImage(ProductImage $productImage): static
+    {
+        if ($this->productImages->removeElement($productImage)) {
+            // set the owning side to null (unless already changed)
+            if ($productImage->getProduct() === $this) {
+                $productImage->setProduct(null);
             }
         }
 

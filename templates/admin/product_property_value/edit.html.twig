@@ -2,8 +2,9 @@
 
 {% block title %}Editar Propriedades do Produto {% endblock %}
 
-{% block body %}
-    <h1>Editar Propriedades do Produto</h1>
+{% block body %} 
+    <h1>{{ product.title }}</h1>
+    <h4>Editar Propriedades do Produto</h4>
 
     {{ include('admin/product_property_value/_form.html.twig', {'button_label': 'Salvar'}) }}
 

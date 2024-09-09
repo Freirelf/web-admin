@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<div class="mb-3">
+	<label for="{{ form.product.vars.id }}" class="form-label">Produto</label>
+    {{ form_widget(form.product, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.imageFile.vars.id }}" class="form-label">Imagem</label>
+    {{ form_widget(form.imageFile) }}
+	 {% if product_image.imageFile is not empty %}
+    	<img class="mt-3" src="{{ vich_uploader_asset(product_image,'imageFile') }}" width="150" />
+    {% endif %}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.imageTitle.vars.id }}" class="form-label">Título</label>
+    {{ form_widget(form.imageTitle, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.imageAlt.vars.id }}" class="form-label">Alt da imagem</label>
+    {{ form_widget(form.imageAlt, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

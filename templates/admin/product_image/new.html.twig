@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Criar nova imagem do produto{% endblock %}
+
+{% block body %}
+    <h1>Criar nova imagem do produto</h1>
+
+    {{ include('admin/product_image/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_product_image_index', {'productId': product.id}) }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+{% endblock %}
