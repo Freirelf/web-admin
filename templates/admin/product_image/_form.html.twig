@@ -1,10 +1,5 @@
 {{ form_start(form) }}
 <div class="mb-3">
-	<label for="{{ form.product.vars.id }}" class="form-label">Produto</label>
-    {{ form_widget(form.product, {'attr': {'class': 'form-control' } }) }}
-</div>
-
-<div class="mb-3">
 	<label for="{{ form.imageFile.vars.id }}" class="form-label">Imagem</label>
     {{ form_widget(form.imageFile) }}
 	 {% if product_image.imageFile is not empty %}

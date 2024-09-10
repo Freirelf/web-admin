@@ -55,23 +55,19 @@
 			<table class="table" id="myTable">
 				<thead>
 					<tr>
-						<th>Produto</th>
 						<th>Propriedade</th>
 						<th>Valor</th>
-						<th>Idioma</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for product_property_value in product_property_values %}
 						<tr>
-							<td>{{ product_property_value.product.title }}</td>
 							<td>{{ product_property_value.productProperty.title }}</td>
 							<td>{{ product_property_value.value }}</td>
-                            <td>{{ languagesEnum.getFlag(product_property_value.language)|raw }}</td>
+
 							<td>
 								<a href="{{ path('app_admin_product_property_value_edit', {'id': product_property_value.id, 'productId':product.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
-								<a href="{{ path('app_admin_product_property_value_show', {'id': product_property_value.id}) }}" class="btn btn-outline-info float-end me-2">Vizualizar</a>
 							</td>
 						</tr>
 					{% else %}

@@ -34,6 +34,7 @@ class ProductManualController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productManual->setProduct($product);
             $entityManager->persist($productManual);
             $entityManager->flush();
 
@@ -55,6 +56,7 @@ class ProductManualController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productManual->setProduct($product);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_product_manual_index', ['productId' => $productId], Response::HTTP_SEE_OTHER);

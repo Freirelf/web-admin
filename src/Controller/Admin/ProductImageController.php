@@ -35,6 +35,7 @@ class ProductImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productImage->setProduct($product);
             $entityManager->persist($productImage);
             $entityManager->flush();
 
@@ -64,6 +65,7 @@ class ProductImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productImage->setProduct($product);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_product_image_index', ['productId' => $productId], Response::HTTP_SEE_OTHER);

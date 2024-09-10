@@ -3,7 +3,8 @@
 {% block title %}Criar novo Manual do produto {% endblock %}
 
 {% block body %}
-    <h1>Create Criar novo Manual do produto </h1>
+    <h1>{{ product.title }}</h1>
+    <h4>Criar novo manual do produto: </h4>
 
     {{ include('admin/product_manual/_form.html.twig') }}
 

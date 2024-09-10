@@ -38,6 +38,10 @@
 <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 
 
+    <h1>{{ product.title }}</h1>
+    <h4>Imagem do produto</h4>
+
+
 <div class="row text-end">
 	<div class="col">
 		<a href="{{ path('app_admin_product_image_new', {'productId':product.id}) }}" class="mb-2 btn btn-outline-secondary">Criar novo</a>
@@ -52,7 +56,6 @@
 		<table class="table" id="myTable">
 			<thead>
 				<tr>
-					<th>Produto</th>
 					<th>Image</th> 
 					<th>Title</th>
 					<th>Alt</th>
@@ -62,7 +65,6 @@
 			<tbody>
 				{% for product_image in product_images %}
 					<tr>
-						<td>{{ product_image.product.title }}</td>
 						<td>
 							{% if product_image.imageFile is not empty %}
 								<img class="mt-3" src="{{ vich_uploader_asset(product_image,'imageFile') }}" width="80"/>

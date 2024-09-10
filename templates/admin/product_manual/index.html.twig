@@ -38,6 +38,10 @@
 <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 
 
+  <h1>{{ product.title }}</h1>
+  <h4>Manual do produto</h4>
+
+
 <div class="row text-end">
 	<div class="col">
 		<a href="{{ path('app_admin_product_manual_new', {'productId':product.id}) }}" class="mb-2 btn btn-outline-secondary">Criar novo</a>
@@ -52,7 +56,6 @@
 		<table class="table" id="myTable">
 			<thead>
 				<tr>
-					<th>Produto</th>
 					<th>Title</th>
 					<th></th>
 				</tr>
@@ -60,11 +63,10 @@
 			<tbody>
 				{% for product_manual in product_manuals %}
 					<tr>
-						<td>{{ product_manual.product.title }}</td>
 						<td>{{ product_manual.title }}</td>
 						<td>
-                            {% if product_manual.manualFile is not empty %}
-							<a target="_blank" class="btn btn-outline-secondary float-end ms-2" href="{{ vich_uploader_asset(product_manual,'manualFile') }}">PDF</a>
+              {% if product_manual.manualFile is not empty %}
+								<a target="_blank" class="btn btn-outline-secondary float-end ms-2" href="{{ vich_uploader_asset(product_manual,'manualFile') }}">PDF</a>
 							{% endif %}
 							<a href="{{ path('app_admin_product_manual_edit', {'id': product_manual.id, 'productId':product.id}) }}" class="btn btn-outline-secondary float-end">Editar</a>
 						</td>

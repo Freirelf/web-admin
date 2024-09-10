@@ -34,6 +34,7 @@ class ProductPropertyValueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productPropertyValue->setProduct($product);
             $entityManager->persist($productPropertyValue);
             $entityManager->flush();
 
@@ -63,6 +64,7 @@ class ProductPropertyValueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productPropertyValue->setProduct($product);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_product_property_value_index', ['productId' => $productId], Response::HTTP_SEE_OTHER);
