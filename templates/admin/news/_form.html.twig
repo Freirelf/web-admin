@@ -51,8 +51,30 @@
 
 <div class="mb-3">
 	<label for="{{ form.fullDescription.vars.id }}" class="form-label">Descrição completa</label>
-    {{ form_widget(form.fullDescription, {'attr': {'class': 'form-control' } }) }}
+    {{ form_widget(form.fullDescription, {'attr': {'class': 'form-control editor'} }) }}
 </div>
 
 <button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
+
+<script src="https://cdn.tiny.cloud/1/pl27hhkwwpf4p8ubyew15f24kxxh3o049v99ynr374dbikoy/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+  tinymce.init({
+    menubar: false,
+    selector: 'textarea.editor',
+    plugins: [
+      // Core editing features
+      'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+      'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+    ],
+    toolbar: 'undo redo | fontsize | bold italic underline strikethrough  addcomment showcomments | spellcheckdialog a11ycheck typography | checklist numlist bullist | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+  });
+</script>
 {{ form_end(form) }}
