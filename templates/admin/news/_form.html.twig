@@ -54,6 +54,19 @@
     {{ form_widget(form.fullDescription, {'attr': {'class': 'form-control editor'} }) }}
 </div>
 
+<style>
+    div#news_category input[type="checkbox"]{
+        display: inline-block;
+        margin-right: 10px;
+        width: 3%;
+    }
+        #news_category label {
+        display: inline-block;
+        margin-right: 10px;
+        width: 92%;
+    }
+</style>
+
 <button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
 
 <script src="https://cdn.tiny.cloud/1/pl27hhkwwpf4p8ubyew15f24kxxh3o049v99ynr374dbikoy/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
