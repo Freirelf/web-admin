@@ -3,7 +3,8 @@
 {% block title %}Editar Imagem do produto{% endblock %}
 
 {% block body %}
-    <h1>Editar Imagem do produto</h1>
+    <h1>{{ product.title }}</h1>
+    <h4>Editar Imagem do produto</h4>
 
     {{ include('admin/product_image/_form.html.twig', {'button_label': 'Salvar'}) }}
 

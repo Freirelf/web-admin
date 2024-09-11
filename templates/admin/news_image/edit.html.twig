@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar imagem da notícia{% endblock %}
+
+{% block body %}
+    <h1>{{ news.date|date('d/m/Y') }} - {{ news.title }}</h1>
+    <h4>Editar imagem da notícia</h4>
+
+    {{ include('admin/news_image/_form.html.twig', {'button_label': 'Salvar'}) }}
+
+    <a href="{{ path('app_admin_news_image_index', {'newsId': news.id}) }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+    {{ include('admin/news_image/_delete_form.html.twig') }}
+{% endblock %}

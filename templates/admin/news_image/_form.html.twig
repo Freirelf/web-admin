@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+<div class="mb-3">
+	<label for="{{ form.imageFile.vars.id }}" class="form-label">Imagem</label>
+    {{ form_widget(form.imageFile) }}
+	 {% if news_image.imageFile is not empty %}
+    	<img class="mt-3" src="{{ vich_uploader_asset(news_image,'imageFile') }}" width="150" />
+    {% endif %}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.title.vars.id }}" class="form-label">Título</label>
+    {{ form_widget(form.title, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<div class="mb-3">
+	<label for="{{ form.alt.vars.id }}" class="form-label">Alt da imagem</label>
+    {{ form_widget(form.alt, {'attr': {'class': 'form-control' } }) }}
+</div>
+
+<button class="me-2 btn btn-outline-info float-start">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

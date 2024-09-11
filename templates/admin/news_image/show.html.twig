@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NewsImage{% endblock %}
+
+{% block body %}
+    <h1>NewsImage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ news_image.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ news_image.title }}</td>
+            </tr>
+            <tr>
+                <th>Alt</th>
+                <td>{{ news_image.alt }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ news_image.image }}</td>
+            </tr>
+            <tr>
+                <th>ImageUpdatedAt</th>
+                <td>{{ news_image.imageUpdatedAt ? news_image.imageUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_news_image_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_news_image_edit', {'id': news_image.id}) }}">edit</a>
+
+    {{ include('admin/news_image/_delete_form.html.twig') }}
+{% endblock %}

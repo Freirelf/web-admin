@@ -61,9 +61,16 @@ class News
     #[ORM\Column(nullable: true)]
     private ?int $language = null;
 
+    /**
+     * @var Collection<int, NewsImage>
+     */
+    #[ORM\OneToMany(targetEntity: NewsImage::class, mappedBy: 'news')]
+    private Collection $newsImages;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->newsImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,6 +229,36 @@ class News
     public function setLanguage(?int $language): static
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NewsImage>
+     */
+    public function getNewsImages(): Collection
+    {
+        return $this->newsImages;
+    }
+
+    public function addNewsImage(NewsImage $newsImage): static
+    {
+        if (!$this->newsImages->contains($newsImage)) {
+            $this->newsImages->add($newsImage);
+            $newsImage->setNews($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNewsImage(NewsImage $newsImage): static
+    {
+        if ($this->newsImages->removeElement($newsImage)) {
+            // set the owning side to null (unless already changed)
+            if ($newsImage->getNews() === $this) {
+                $newsImage->setNews(null);
+            }
+        }
 
         return $this;
     }

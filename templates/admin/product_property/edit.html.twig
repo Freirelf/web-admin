@@ -3,7 +3,8 @@
 {% block title %}Editar Propriedades de Produtos {% endblock %}
 
 {% block body %}
-	<h2>Editar Propriedade de Produto</h2>
+  <h1>{{ product.title }}</h1>
+	<h4>Editar Propriedade de Produto</h4>
 
 	{{ include('admin/product_property/_form.html.twig', {'button_label': 'Salvar'}) }}
 
