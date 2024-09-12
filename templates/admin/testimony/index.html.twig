@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% set languagesEnum = enum('\\App\\Entity\\Enum\\LanguageEnum') %}
 {% block title %}
-	Lista de serviços
+	Lista de depoimentos
 {% endblock %}
 {% block javascripts %}
 	<script
@@ -41,13 +41,13 @@
 
 	<div class="row text-end">
 		<div class="col">
-			<a href="{{ path('app_admin_service_new') }}" class="mb-2 btn btn-outline-secondary">Criar nova</a>
+			<a href="{{ path('app_admin_testimony_new') }}" class="mb-2 btn btn-outline-secondary">Criar nova</a>
 		</div>
 	</div>
 
 	<div class="card">
 		<div class="card-header">
-			<h5>Lista de serviços</h5>
+			<h5>Lista de depoimentos</h5>
 		</div>
 		<div class="card-body">
 			<table class="table" id="myTable">
@@ -55,32 +55,32 @@
 					<tr>
 						<th>Status</th>
 						<th>Posição</th>
-						<th>Imagem</th>     
-						<th>Título</th>
-						<th>Idioma</th>     
+						<th>Imagem</th>
+						<th>Nome</th>
+						<th>Idioma</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for service in services %}
-						<tr>
+					{% for testimony in testimonies %}
+								<tr>
 							<td>
-								{% if service.status==1 %}
+								{% if testimony.status == 1 %}
 									<span class="badge badge-sm bg-info ms-auto">Ativo</span>
 								{% else %}
 									<span class="badge badge-sm bg-secondary ms-auto">Inativo</span>
 								{% endif %}
 							</td>
-							<td>{{ service.position }}</td>
+							<td>{{ testimony.position }}</td>
 							<td>
-								{% if service.imageFile is not empty %}
-									<img class="mt-3" src="{{ vich_uploader_asset(service,'imageFile') }}" width="80"/>
+								{% if testimony.imageFile is not empty %}
+									<img class="mt-3" src="{{ vich_uploader_asset(testimony,'imageFile') }}" width="80"/>
 								{% endif %}
 							</td>
-                            <td>{{ service.title }}</td>
-                            <td>{{ languagesEnum.getFlag(service.language)|raw }}</td>
+								<td>{{ testimony.title }}</td>
+								<td>{{ languagesEnum.getFlag(testimony.language)|raw }}</td>
 							<td>
-								<a href="{{ path('app_admin_service_edit', {'id': service.id}) }}" class="btn btn-outline-secondary float-end me-2">Editar</a>
+								<a href="{{ path('app_admin_testimony_edit', {'id': testimony.id}) }}" class="btn btn-outline-secondary float-end me-2">Editar</a>
 							</td>
 						</tr>
 					{% else %}
