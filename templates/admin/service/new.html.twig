@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Criar novo serviço{% endblock %}
+
+{% block body %}
+    <h1>Criar novo serviço</h1>
+
+    {{ include('admin/service/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_service_index') }}" class="btn btn-outline-secondary me-2 float-start">Voltar</a>
+
+{% endblock %}
