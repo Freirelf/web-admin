@@ -7,11 +7,13 @@ use App\Entity\Enum\LanguageEnum;
 use App\Entity\GeneralData;
 use App\Entity\GlobalTags;
 use App\Entity\PageSeo;
+use App\Entity\User;
 use App\Entity\WhoWeArePage;
 use App\Repository\ContactFormUrlPostRepository;
 use App\Repository\GeneralDataRepository;
 use App\Repository\GlobalTagsRepository;
 use App\Repository\PageSeoRepository;
+use App\Repository\UserRepository;
 use App\Repository\WhoWeArePageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -21,6 +23,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'app:create-sample-data',
@@ -34,7 +37,9 @@ class CreateSampleDataCommand extends Command
         private EntityManagerInterface $entityManager,
         private GlobalTagsRepository $globalTagsRepository,
         private ContactFormUrlPostRepository $contactFormUrlPostRepository,
-        private WhoWeArePageRepository $whoWeArePageRepository
+        private WhoWeArePageRepository $whoWeArePageRepository,
+        private UserRepository $userRepository,
+        private UserPasswordHasherInterface $passwordHasher
         )
     {
         parent::__construct();
@@ -134,6 +139,26 @@ class CreateSampleDataCommand extends Command
             }
         }
 
+        $user = $this->userRepository->findAll();
+        if ($user) {
+            $io->writeln('Admin' . ' <comment> já exite</comment>');
+        } else {
+            $io->writeln('Admin' . ' <info>criada</info>');
+
+            $user = new User();
+            $user->setEmail('admin@dominio.com.br');
+            $user->setRoles(['ROLE_ADMIN']);
+            $plaintextPassword = "root123";
+
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $plaintextPassword
+            );
+            $user->setPassword($hashedPassword);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
 
         $io->success('Data injected successfully.');
 

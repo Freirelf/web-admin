@@ -1,16 +1,166 @@
 {% extends 'base.html.twig' %}
+{% set languagesEnum = enum('\\App\\Entity\\Enum\\LanguageEnum') %}
+{% block title %}Dashboard{% endblock %}
+{% block javascripts %}
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script>
 
-{% block title %}Hello dashboardController!{% endblock %}
+        $(document).ready(function () {
+            $('#tabela').DataTable({
+                "lengthMenu": [[ 10, 25, 50, 100,-1], [ 10, 25, 50, 100,"Todos"]],
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ registros por página",
+                    "zeroRecords": "Nada encontrado",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "search": " Pesquisar",
 
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Última",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Dashboard ✅</h1>
-    <p>Bem vindo!</p>
-    
-</div>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+
+
+    <div class="row">
+        <div class="col-6 col-lg-3">
+            <a class="card" href="{{ path('app_admin_banner_index') }}">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <div class="bg-primary text-white p-3 me-3">
+                        <svg class="icon icon-xl">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="fs-6 fw-semibold text-primary">{{ totalBanners }}</div>
+                        <div class="text-medium-emphasis text-uppercase fw-semibold small">Banners</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- /.col-->
+        <div class="col-6 col-lg-3">
+            <a href="{{ path('app_admin_news_index') }}" class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <div class="bg-info text-white p-3 me-3">
+                        <svg class="icon icon-xl">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-laptop"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="fs-6 fw-semibold text-info">{{ totalNews }}</div>
+                        <div class="text-medium-emphasis text-uppercase fw-semibold small">Notícias</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- /.col-->
+        <div class="col-6 col-lg-3">
+            <a href="{{ path('app_admin_product_index') }}" class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <div class="bg-warning text-white p-3 me-3">
+                        <svg class="icon icon-xl">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-moon"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="fs-6 fw-semibold text-warning">{{ totalProducts }}</div>
+                        <div class="text-medium-emphasis text-uppercase fw-semibold small">Produtos</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- /.col-->
+        <div class="col-6 col-lg-3">
+            <a href="{{ path('app_admin_testimony_index') }}" class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <div class="bg-danger text-white p-3 me-3">
+                        <svg class="icon icon-xl">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="fs-6 fw-semibold text-danger">{{ totalTestimonies }}</div>
+                        <div class="text-medium-emphasis text-uppercase fw-semibold small">Depoimentos</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12 col-lg-12">
+            <div class="card mb-5">
+                <h5 class="card-header">Notícias</h5>
+                <div class="card-body">
+                    <table class="table" id="tabela">
+                        <thead>
+                        <tr>
+                            <th>Mostrar no Site</th>
+                            <th>Destaque</th>
+                            <th>Imagem</th>
+                            <th>Título</th>
+                            <th>Data</th>
+                            <th>Idioma</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for newsItem in allNews %}
+                            <tr>
+                                <td>
+                                    {% if newsItem.status == 1 %}
+                                        <span class="badge badge-sm bg-success ms-auto">Ativo</span>
+                                    {% else %}
+                                        <span class="badge badge-sm bg-danger  ms-auto">Inativo</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if newsItem.highlighted == 1 %}
+                                        <span class="badge badge-sm bg-success ms-auto">Ativo</span>
+                                    {% else %}
+                                        <span class="badge badge-sm bg-danger  ms-auto">Inativo</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if newsItem.imageFile is not empty %}
+                                        <img src="{{ vich_uploader_asset(newsItem,'imageFile') }}" width="75">
+                                    {% endif %}
+                                </td>
+                                <td>{{ newsItem.title }}</td>
+                                <td>{{ newsItem.date|date('d/m/Y') }}</td>
+                                <td>{{ languagesEnum.getFlag(newsItem.language)|raw }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary float-end" href="{{ path('app_admin_news_edit', {'id': newsItem.id}) }}">editar</a>
+                                    <a class="btn btn-success float-end text-white me-2" href="{{ path('app_admin_news_image_index', {'newsId': newsItem.id}) }}">Imagens</a>
+                                </td>
+                            </tr>
+                        {% else %}
+						<tr>
+							<td colspan="3">Nenhum registro encontrado.</td>
+						</tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

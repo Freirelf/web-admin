@@ -1,0 +1,79 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+<form method="post">
+	<div class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="card-group d-block d-md-flex row">
+						<div class="card col-md-7 p-4 mb-0">
+							<div class="card-body">
+								<h1>Login</h1>
+								{% if error %}
+									<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+								{% endif %}
+
+								{% if app.user %}
+									<div class="mb-3">
+										Você está logado como
+										{{ app.user.userIdentifier }} ->
+										<a href="{{ path('app_logout') }}">Sair?</a> Ou ir para <a href="{{path('app_admin_dashboard')}}">Dashboard</a>
+									</div>
+								{% endif %}
+								<p class="text-body-secondary">Entrar na sua conta</p>
+
+
+								<div class="input-group mb-3">
+									<span class="input-group-text">
+										<label for="username">Email</label>
+										<svg class="icon">
+											<use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+										</svg>
+									</span>
+									<input placeholder="seuemail@dominio.com" type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+								</div>
+
+
+								<div class="input-group mb-4">
+									<span class="input-group-text">
+										<label for="password">Senha</label>
+										<svg class="icon">
+											<use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
+										</svg>
+									</span>
+									<input placeholder="*********" type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								</div>
+
+
+								<div class="row">
+									<div class="col-6">
+										<button class="btn btn-primary px-4" type="submit">Entrar</button>
+									</div>
+									<div class="col-6 text-end">
+										<button class="btn btn-link px-0" type="button">Esqueceu a senha?</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card col-md-5 text-white bg-primary py-5">
+							<div class="card-body text-center">
+								<div>
+									<h2>Suporte</h2>
+									<p>Sevocês estiver com dificuldade em acessar o sistema contate nosso suporte.</p>
+									<a href="https://google.com" tagert="_blank" class="btn btn-lg btn-outline-light mt-3" type="button">Suporte</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}

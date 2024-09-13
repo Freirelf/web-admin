@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+		<meta name="description" content="Área administrativa">
+		<title>
+			{% block title %}Web Admin
+			{% endblock %}
+		</title>
+		<!-- Vendors styles-->
+		<link rel="stylesheet" href="/admin/vendors/simplebar/css/simplebar.css">
+		<link
+		rel="stylesheet" href="/admin/css/vendors/simplebar.css">
+		<!-- Main styles for this application-->
+		<link
+		href="/admin/css/style.css" rel="stylesheet">
+		<!-- We use those styles to show code examples, you should remove them in your application.-->
+		<link href="/admin/css/examples.css" rel="stylesheet">
+		<link href="/admin/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="wrapper d-flex flex-column min-vh-100 bg-light">
+			<div class="body flex-grow-1 px-3">
+				<div class="container-lg"> {% block body %}{% endblock %}
+					</div>
+				</div>
+				<footer class="footer">
+					<div class="ms-auto">Desenvolvido por by&nbsp;<a href="#">LFSolutions</a>
+					</div>
+				</footer>
+			</div>
+			<!-- CoreUI and necessary plugins-->
+			<script src="/admin/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+			<script src="/admin/vendors/simplebar/js/simplebar.min.js"></script>
+			<!-- Plugins and scripts required by this view-->
+			<script src="/admin/vendors/chart.js/js/chart.min.js"></script>
+			<script src="/admin/vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
+			<script src="/admin/vendors/@coreui/utils/js/coreui-utils.js"></script>
+			<script src="/admin/js/main.js"></script>
+			<script></script>
+
+
+		</body>
+	</html>
