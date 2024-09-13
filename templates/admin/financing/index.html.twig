@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% set languagesEnum = enum('\\App\\Entity\\Enum\\LanguageEnum') %}
+{% block title %}
+	Lista de Financiamento
+{% endblock %}
+{% block javascripts %}
+	<script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "lengthMenu": [[ 10, 25, 50, 100,-1], [ 10, 25, 50, 100,"Todos"]],
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ registros por página",
+                    "zeroRecords": "Nada encontrado",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "search": " Pesquisar",
+
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Última",
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+	</script>
+{% endblock %}
+
+{% block body %}
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css"/>
+	<script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+
+
+	<div class="row text-end">
+		<div class="col">
+			<a href="{{ path('app_admin_financing_new') }}" class="mb-2 btn btn-outline-secondary">Criar nova</a>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">
+			<h5>Lista de Financiamentos</h5>
+		</div>
+		<div class="card-body">
+			<table class="table" id="myTable">
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Posição</th>
+						<th>Imagem</th>
+						<th>Nome</th>
+						<th>Idioma</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for financing in financings %}
+								<tr>
+							<td>
+								{% if financing.status == 1 %}
+									<span class="badge badge-sm bg-info ms-auto">Ativo</span>
+								{% else %}
+									<span class="badge badge-sm bg-secondary ms-auto">Inativo</span>
+								{% endif %}
+							</td>
+							<td>{{ financing.position }}</td>
+							<td>
+								{% if financing.imageFile is not empty %}
+									<img class="mt-3" src="{{ vich_uploader_asset(financing,'imageFile') }}" width="80"/>
+								{% endif %}
+							</td>
+								<td>{{ financing.title }}</td>
+								<td>{{ languagesEnum.getFlag(financing.language)|raw }}</td>
+							<td>
+								<a href="{{ path('app_admin_financing_edit', {'id': financing.id}) }}" class="btn btn-outline-secondary float-end me-2">Editar</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3">Nenhum registro encontrado.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

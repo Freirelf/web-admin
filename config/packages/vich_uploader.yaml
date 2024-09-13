@@ -57,3 +57,9 @@ vich_uploader:
             upload_destination: '%kernel.project_dir%/public/images/testimonyImage'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             inject_on_load: true
+        
+        financingImage:
+            uri_prefix: /images/financingImage
+            upload_destination: '%kernel.project_dir%/public/images/financingImage'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true

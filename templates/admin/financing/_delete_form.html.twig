@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_admin_financing_delete', {'id': financing.id}) }}" onsubmit="return confirm('Quer mesmo apagar este item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ financing.id) }}">
+    <button class="btn btn-outline-danger ">Apagar</button>
+</form>

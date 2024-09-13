@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Novo Depoimento</h1>
 
-    {{ include('admin/testimony/_form.html.twig') }}
+    {{ include('admin/testimony/_form.html.twig', {'button_label': 'Salvar'}) }}
 
     <a href="{{ path('app_admin_testimony_index') }}"class="btn btn-outline-secondary me-2 float-start">Voltar</a>
 {% endblock %}
