@@ -2,6 +2,12 @@
 
 namespace App\Controller\Public;
 
+use App\Entity\Enum\LanguageEnum;
+use App\Repository\BannerRepository;
+use App\Repository\FinancingRepository;
+use App\Repository\NewsRepository;
+use App\Repository\ProductCategoryRepository;
+use App\Repository\TestimonyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -13,10 +19,27 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class HomeController extends BaseController
 {
     #[Route('/', name: 'app_public_home')]
-    public function index(): Response
-    {   
+    public function index(
+        BannerRepository $bannerRepository, 
+        ProductCategoryRepository $productCategoryRepository, 
+        NewsRepository $newsRepository,
+        TestimonyRepository $testimonyRepository,
+        FinancingRepository $financingRepository
+        ): Response
+    {
+        $languageId = LanguageEnum::getLanguageId($this->session->get('language'));
+
+        $banners = $bannerRepository->findBy(['language' => $languageId, 'active' => 1], ['position' => 'ASC']);
+        $productCategories = $productCategoryRepository->findBy(['language' => $languageId]);
+        $allNews = $newsRepository->findby(['language' => $languageId, 'status' => 1, 'highlighted' => 1], ['date' => 'DESC']);
+        $testimonies = $testimonyRepository->findby(['language' => $languageId, 'status' => 1, 'highlighted' => 1], ['position' => 'ASC']);
+        $allFinancing = $financingRepository->findBy(['language' => $languageId, 'status' => 1, 'highlighted' => 1], ['position' => 'ASC']);
         return $this->render('public/home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'banners' => $banners,
+            'productCategories' => $productCategories,
+            'allNews' => $allNews,
+            'testimonies' => $testimonies,
+            'allFinancing' => $allFinancing
         ]);
     }
 

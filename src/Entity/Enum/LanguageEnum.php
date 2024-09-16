@@ -27,6 +27,18 @@ enum LanguageEnum: int
   }
 
 
+  public static function getLanguageId($index): string
+  {
+    $value = [
+      'pt' => self::PT->value,
+      'es' => self::ES->value,
+      'en' => self::EN->value,
+      "" => ''
+    ];
+
+    return $value[$index];
+  }
+
   public static function getLanguageName($index): string
   {
     $value = [
