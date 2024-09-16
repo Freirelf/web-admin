@@ -4,14 +4,16 @@ namespace App\Controller\Public;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/public', name: 'app_public_home')]
-class HomeController extends AbstractController
+#[Route('/public')]
+class HomeController extends BaseController
 {
     #[Route('/', name: 'app_public_home')]
-    public function index(TranslatorInterface $translator): Response
+    public function index(): Response
     {   
         return $this->render('public/home/index.html.twig', [
             'controller_name' => 'HomeController',

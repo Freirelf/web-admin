@@ -17,6 +17,16 @@ enum LanguageEnum: int
     ];
   }
 
+  public static function getLanguagesAbbreviated(): array
+  {
+    return [
+      'pt' => self::PT->value,
+      'es' => self::ES->value,
+      'en' => self::EN->value,
+    ];
+  }
+
+
   public static function getLanguageName($index): string
   {
     $value = [
