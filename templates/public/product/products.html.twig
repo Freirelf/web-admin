@@ -3,18 +3,26 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% extends 'base-public.html.twig' %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block title %}Hello HomeController!{% endblock %}
 
-    This friendly message is coming from:
+{% block body %}
+    {{ pageSeo.aboutUsPageTitle }}<br>
+    {{ pageSeo.aboutUsPageDescription }}<br>
+    {{ generalData.address }}<br>
+    {{ generalData.email }}<br>
+    {{ generalData.phone }}<br>
+    {{ globalTags.pixelMetaAds }}<br>
+    {{ globalTags.tagsGoogleAds }}<br>
+    {{ globalTags.ga4 }}<br>
+    {{ urlToPostForm.url }}<br>
+
+    <h1>Produtos</h1>
     <ul>
-        <li>Your controller at <code>/home/lucasfreire/www/projects/web-admin/src/Controller/Public/HomeController.php</code></li>
-        <li>Your template at <code>/home/lucasfreire/www/projects/web-admin/templates/public/home/index.html.twig</code></li>
+    {% for product in allProducts %}
+    <li><a href="{{ path('app_product_detail',{'slug':product.slug}) }}" >{{ product.title  }}</a></li>
+    {% endfor %}
     </ul>
-</div>
+{% endblock %}
 {% endblock %}

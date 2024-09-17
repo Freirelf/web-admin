@@ -20,26 +20,33 @@ class HomeController extends BaseController
 {
     #[Route('/', name: 'app_public_home')]
     public function index(
-        BannerRepository $bannerRepository, 
-        ProductCategoryRepository $productCategoryRepository, 
+        BannerRepository $bannerRepository,
+        ProductCategoryRepository $productCategoryRepository,
         NewsRepository $newsRepository,
         TestimonyRepository $testimonyRepository,
         FinancingRepository $financingRepository
-        ): Response
-    {
-        $languageId = LanguageEnum::getLanguageId($this->session->get('language'));
+    ): Response {
 
-        $banners = $bannerRepository->findBy(['language' => $languageId, 'active' => 1], ['position' => 'ASC']);
-        $productCategories = $productCategoryRepository->findBy(['language' => $languageId]);
-        $allNews = $newsRepository->findby(['language' => $languageId, 'status' => 1, 'highlighted' => 1], ['date' => 'DESC']);
-        $testimonies = $testimonyRepository->findby(['language' => $languageId, 'status' => 1, 'highlighted' => 1], ['position' => 'ASC']);
-        $allFinancing = $financingRepository->findBy(['language' => $languageId, 'status' => 1, 'highlighted' => 1], ['position' => 'ASC']);
+        $banners = $bannerRepository->findBy(['language' => $this->getLanguageId(), 'active' => 1], ['position' => 'ASC']);
+
+        $productCategories = $productCategoryRepository->findBy(['language' => $this->getLanguageId()]);
+
+        $allNews = $newsRepository->findby(['language' => $this->getLanguageId(), 'status' => 1, 'highlighted' => 1], ['date' => 'DESC']);
+
+        $testimonies = $testimonyRepository->findby(['language' => $this->getLanguageId(), 'status' => 1, 'highlighted' => 1], ['position' => 'ASC']);
+
+        $allFinancing = $financingRepository->findBy(['language' => $this->getLanguageId(), 'status' => 1, 'highlighted' => 1], ['position' => 'ASC']);
+
         return $this->render('public/home/index.html.twig', [
             'banners' => $banners,
             'productCategories' => $productCategories,
             'allNews' => $allNews,
             'testimonies' => $testimonies,
-            'allFinancing' => $allFinancing
+            'allFinancing' => $allFinancing,
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm
         ]);
     }
 
@@ -47,15 +54,24 @@ class HomeController extends BaseController
     public function whoWeAre(): Response
     {
         return $this->render('public/who-we-are/who-we-are.html.twig', [
-            'controller_name' => 'HomeController',
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm
         ]);
     }
 
     #[Route('/news', name: 'app_public_news')]
-    public function news(): Response
-    {
+    public function news(NewsRepository $newsRepository): Response
+    {   
+        $allNews = $newsRepository->findby(['language' => $this->getLanguageId(), 'status' => 1, 'highlighted' => 1], ['date' => 'DESC']);
+
         return $this->render('public/news/news.html.twig', [
-            'controller_name' => 'HomeController',
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm,
+            'allNews' => $allNews
         ]);
     }
 
@@ -63,7 +79,10 @@ class HomeController extends BaseController
     public function notice(): Response
     {
         return $this->render('public/news/notice.html.twig', [
-            'controller_name' => 'HomeController',
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm
         ]);
     }
 
@@ -71,7 +90,10 @@ class HomeController extends BaseController
     public function products(): Response
     {
         return $this->render('public/product/products.html.twig', [
-            'controller_name' => 'HomeController',
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm
         ]);
     }
 
@@ -79,7 +101,10 @@ class HomeController extends BaseController
     public function product(): Response
     {
         return $this->render('public/product/product.html.twig', [
-            'controller_name' => 'HomeController',
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm
         ]);
     }
 
@@ -87,7 +112,10 @@ class HomeController extends BaseController
     public function financing(): Response
     {
         return $this->render('public/financing/financing.html.twig', [
-            'controller_name' => 'HomeController',
+            'pageSeo' => $this->pageSeo,
+            'generalData' => $this->generalData,
+            'globalTags' => $this->globalTags,
+            'urlToPostForm' => $this->urlToPostForm
         ]);
     }
 }
