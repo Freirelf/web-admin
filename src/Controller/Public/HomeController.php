@@ -7,6 +7,7 @@ use App\Repository\BannerRepository;
 use App\Repository\FinancingRepository;
 use App\Repository\NewsRepository;
 use App\Repository\ProductCategoryRepository;
+use App\Repository\ProductRepository;
 use App\Repository\TestimonyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,38 +77,53 @@ class HomeController extends BaseController
     }
 
     #[Route('/notice/{slug}', name: 'app_public_notice')]
-    public function notice(): Response
+    public function notice($slug, NewsRepository $newsRepository): Response
     {
+        $news = $newsRepository->findOneBy([
+            'slug' => $slug
+        ]);
         return $this->render('public/news/notice.html.twig', [
             'pageSeo' => $this->pageSeo,
             'generalData' => $this->generalData,
             'globalTags' => $this->globalTags,
-            'urlToPostForm' => $this->urlToPostForm
+            'urlToPostForm' => $this->urlToPostForm,
+            'news' => $news
         ]);
     }
 
     #[Route('/products', name: 'app_public_products')]
-    public function products(): Response
+    public function products(ProductRepository $productRepository): Response
     {
+        $allProducts = $productRepository->findby(['status' => 1,'language' => $this->getLanguageId()]);
         return $this->render('public/product/products.html.twig', [
             'pageSeo' => $this->pageSeo,
             'generalData' => $this->generalData,
             'globalTags' => $this->globalTags,
-            'urlToPostForm' => $this->urlToPostForm
+            'urlToPostForm' => $this->urlToPostForm,
+            'allProducts' => $allProducts
         ]);
     }
 
     #[Route('/product/{slug}', name: 'app_public_product')]
-    public function product(): Response
+    public function product($slug, ProductRepository $productRepository): Response
     {
+        $product = $productRepository->findOneBy([
+            'slug' => $slug
+        ]);
+    
+        // Verifica se o produto existe
+        if (!$product) {
+            throw $this->createNotFoundException('Produto não encontrado');
+        }
+    
         return $this->render('public/product/product.html.twig', [
             'pageSeo' => $this->pageSeo,
             'generalData' => $this->generalData,
             'globalTags' => $this->globalTags,
-            'urlToPostForm' => $this->urlToPostForm
+            'urlToPostForm' => $this->urlToPostForm,
+            'product' => $product // Passa o produto encontrado
         ]);
     }
-
     #[Route('/financing', name: 'app_public_financing')]
     public function financing(): Response
     {

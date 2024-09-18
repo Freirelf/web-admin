@@ -3,11 +3,6 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-{% extends 'base-public.html.twig' %}
-
-{% block title %}Hello HomeController!{% endblock %}
-
-{% block body %}
     {{ pageSeo.aboutUsPageTitle }}<br>
     {{ pageSeo.aboutUsPageDescription }}<br>
     {{ generalData.address }}<br>
@@ -21,8 +16,7 @@
     <h1>Produtos</h1>
     <ul>
     {% for product in allProducts %}
-    <li><a href="{{ path('app_product_detail',{'slug':product.slug}) }}" >{{ product.title  }}</a></li>
+        <li><a href="{{ path('app_public_product', {'slug': product.slug}) }}">{{ product.title }}</a></li>
     {% endfor %}
     </ul>
-{% endblock %}
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin/news')]
 class NewsController extends AbstractController
@@ -23,13 +24,15 @@ class NewsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_news_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $news = new News();
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($news->getTitle().' '.$news->getId());
+            $news->setSlug($slug);
             $entityManager->persist($news);
             $entityManager->flush();
 
@@ -51,12 +54,14 @@ class NewsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_news_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, News $news, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, News $news, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($news->getTitle().' '.$news->getId());
+            $news->setSlug($slug);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_news_index', [], Response::HTTP_SEE_OTHER);

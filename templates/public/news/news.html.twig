@@ -15,7 +15,7 @@
 
     <ul>
     {% for news in allNews %}
-        <li><a href="{{ path('app_new_detail',{'slug':news.slug}) }}">{{ news.title }}</a></li>
+        <li><a href="{{ path('app_public_notice',{'slug':news.slug}) }}">{{ news.title }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}

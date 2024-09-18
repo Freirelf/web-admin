@@ -67,6 +67,9 @@ class News
     #[ORM\OneToMany(targetEntity: NewsImage::class, mappedBy: 'news')]
     private Collection $newsImages;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -259,6 +262,18 @@ class News
                 $newsImage->setNews(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
