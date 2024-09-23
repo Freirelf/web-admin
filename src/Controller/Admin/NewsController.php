@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Log;
 use App\Entity\News;
 use App\Form\NewsType;
+use App\Repository\LogRepository;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,5 +84,15 @@ class NewsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_news_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/log', name: 'app_admin_news_log', methods: ['GET'])]
+    public function log($id, NewsRepository $newsRepository, LogRepository $logRepository): Response
+    {
+        return $this->render('admin/news/log.html.twig', [
+            'logs' => $logRepository->findBy(['entity'=>'App\Entity\News',
+            'entityId' => $id
+        ])
+        ]);
     }
 }
